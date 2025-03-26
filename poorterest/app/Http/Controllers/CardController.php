@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\Storage;
 class CardController extends Controller
 {
     // Afficher la liste des médias
-    public function getAllMedia()
+    public function index()
     {
         $medias = Media::all();
-        return view('medias.getAllMedia', compact('medias'));
+        return view('medias.index', compact('medias'));
     }
 
     // Afficher le formulaire de création
-    public function createNewMedia()
+    public function create()
     {
-        return view('medias.createNewMedia');
+        return view('medias.create');
     }
 
     // Enregistrer un nouveau média
@@ -39,6 +39,7 @@ class CardController extends Controller
             'description' => $request->description,
             'title' => $request->title,
             'size' => $request->size,
+            'userId' => auth()->id(),
             'category' => $request->category,
             'status' => 'active',
         ]);
