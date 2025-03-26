@@ -39,7 +39,7 @@ class CardController extends Controller
             'description' => $request->description,
             'title' => $request->title,
             'size' => $request->size,
-            'userId' => auth()->id(),
+            'userId' => Auth::id,
             'category' => $request->category,
             'status' => 'active',
         ]);
