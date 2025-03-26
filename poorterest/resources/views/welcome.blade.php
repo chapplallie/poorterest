@@ -49,7 +49,7 @@
                 </nav>
             @endif
         </header>
-        <!-- ajouter bloc @include la nav avec le sign in/ sign up ici lol -->
+        <!-- ajouter bloc include la nav avec le sign in/ sign up ici lol -->
        <div class="grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
 
             <ul>
@@ -60,6 +60,7 @@
                         </a>
                     </li>
                 }
+                @endforeach
             </ul>
             
        </div>
