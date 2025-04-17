@@ -11,14 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('medias', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->string('size');
-            $table->string('category');
-            $table->string('status');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean(('active'))->default(true);
         });
     }
 
@@ -27,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('medias');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('active');
+        });
     }
 };
