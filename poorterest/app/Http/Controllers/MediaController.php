@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Media;
 use Illuminate\Support\Facades\Storage;
 
-class CardController extends Controller
+class MediaController extends Controller
 {
     // Afficher la liste des médias
     public function index()
     {
         $medias = Media::all();
-        return view('medias.index', compact('medias'));
+        return view('welcome', compact('medias'));
     }
 
     // Afficher le formulaire de création

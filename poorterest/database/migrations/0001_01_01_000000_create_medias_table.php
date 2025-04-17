@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('medias', function (Blueprint $table) {
             $table->id();
-            $table->string('link');
+            $table->string('media');
             $table->string('title');
             $table->string('description');
             $table->string('size');
             $table->string('category');
+            $table->int('userId');
             $table->string('status');
             $table->timestamps();
         });

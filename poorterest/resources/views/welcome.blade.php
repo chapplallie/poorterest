@@ -19,8 +19,8 @@
             </style>
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
-        <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
+    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 flex-col">
+        <header class="w-full text-sm mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
                     @auth
@@ -49,8 +49,20 @@
                 </nav>
             @endif
         </header>
-        <!-- ajouter bloc include la nav avec le sign in/ sign up ici lol -->
-       <div class="grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-       </div>
+        <section class="w-full">
+            <div class="flex gap-4">
+                @foreach ($medias as $media)
+                    <div class="card w-52 border rounded shadow">
+                        <img src="{{ $media->media }}" 
+                        class="w-[100px] h-[200px]"
+                        alt="photo">
+                        <h3 class="text-lg text-white font-bold">{{ $media->title }}</h3>
+                        <p class="text-sm text-white">{{ $media->description }}</p>
+                        <p class="text-sm text-white">Size: {{ $media->size }}</p>
+                        <p class="text-sm text-white">Category: {{ $media->category }}</p>
+                    </div>
+                @endforeach
+            </div>
+        </section>
     </body>
 </html>

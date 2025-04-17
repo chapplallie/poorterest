@@ -3,15 +3,15 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MediaController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',
+    [MediaController::class, 'index'])->name('welcome');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/home',
+    [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::post('/categories',
     [CategoryController::class, 'store']); 
