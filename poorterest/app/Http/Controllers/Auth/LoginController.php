@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -37,4 +40,41 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
+
+    protected function credentials($request)
+    {
+        return [
+            'email' => $request->get('email'),
+            'password' => $request->get('password'),
+            'active' => true,
+        ];
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $user = \App\Models\User::where('email', $request->email)->first();
+
+        if (!$user) {
+            throw ValidationException::withMessages([
+                'email' => ['Cette adresse e-mail est inconnue.'],
+            ]);
+        }
+
+        if ($user && !Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['Le mot de passe est incorrect.'],
+            ]);
+        }
+    
+        if ($user && !$user->active) {
+            throw ValidationException::withMessages([
+                'email' => ['Votre compte a été désactivé. Veuillez contacter un administrateur.'],
+            ]);
+        }
+    
+        throw ValidationException::withMessages([
+            'email' => [trans('auth.failed')],
+        ]);
+    }
+    
 }
