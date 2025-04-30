@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Media;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class MediaController extends Controller
 {
@@ -16,9 +17,10 @@ class MediaController extends Controller
     }
 
     // Afficher le formulaire de création
-    public function create()
+
+    public function createMedia()
     {
-        return view('medias.create');
+        return view('createMedia');
     }
 
     // Enregistrer un nouveau média
@@ -31,6 +33,7 @@ class MediaController extends Controller
             'size' => 'required|string',
             'category' => 'required|string',
         ]);
+        //console.log($request->all());
 
         $path = $request->file('media')->store('medias', 'public');
 
@@ -39,12 +42,12 @@ class MediaController extends Controller
             'description' => $request->description,
             'title' => $request->title,
             'size' => $request->size,
-            'userId' => Auth::id,
+            'userId' => $request->user()->id,
             'category' => $request->category,
             'status' => 'active',
         ]);
 
-        return redirect()->route('medias.index')->with('success', 'Média ajouté avec succès');
+        return redirect()->route('profile')->with('success', 'Média ajouté avec succès');
     }
 
     // Modifier un média
@@ -73,7 +76,7 @@ class MediaController extends Controller
     }
 
     // Supprimer un média
-    public function destroy(Media $media)
+    public function destroyMedia(Media $media)
     {
         Storage::delete('public/' . $media->image);
         $media->delete();

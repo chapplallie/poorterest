@@ -12,19 +12,25 @@ Route::get('/',
 
 Auth::routes();
 
-Route::get('/home',
-    [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::post('/categories',
     [CategoryController::class, 'store']); 
 
 Route::put('/categories/{id}/deactivate',
     [CategoryController::class, 'deactivate']);
+
 Route::get('/profile',
     [ProfileController::class, 'show'])->middleware('auth')->name('profile');
+
+Route::get('/profile/add',
+    [MediaController::class, 'createMedia'])->name('createMedia');
+
 Route::get('/profile/edit',
     [ProfileController::class, 'edit'])->middleware('auth')->name('profile.edit');
+
+Route::post('/todo/store', [MediaController::class, 'uploadMedia'])->name('todo_store');
+
 Route::put('/profile',
     [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
+    
 Route::delete('/profile',
     [ProfileController::class, 'deactivate'])->middleware('auth')->name('profile.deactivate');

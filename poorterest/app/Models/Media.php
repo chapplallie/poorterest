@@ -22,15 +22,17 @@ class Media extends BaseModel
         'title',
         'size',
         'category',
+        'status',
+        'userId',
     ];
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>
      */
+
     protected $hidden = [
-        'status',
-        'userId',
+   
     ];
 
     /**
