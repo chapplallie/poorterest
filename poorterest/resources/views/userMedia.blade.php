@@ -53,7 +53,7 @@
         <section class="w-full">
             <div class="w-full grid grid-cols-4 gap-2">
                 @foreach ($medias as $media)
-                    <a href="#{{ $media->id }}" class="w-full">
+                    <a href="{{ route('editMedia',  $media->id) }}" class="w-full">
                         <div class="card pb-10 w-full h-100 border rounded-lg ">   
                             <img src="{{ asset('storage/' . $media->media) }}" 
                                 class="w-fit object-cover"

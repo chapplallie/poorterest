@@ -52,10 +52,11 @@ class MediaController extends Controller
     // Modifier un média
     public function editMedia(Media $media)
     {
-        return view('medias.edit', compact('media'));
+        $media = Media::find($media->id);
+        return view('editMedia', compact('media'));
     }
 
-    public function updateCard(Request $request, Media $media)
+    public function updateMedia(Request $request, Media $media)
     {
         $request->validate([
             'description' => 'nullable|string',
@@ -71,7 +72,7 @@ class MediaController extends Controller
         }
 
         $media->update($request->only(['description', 'title', 'size', 'category']));
-        return redirect()->route('medias.index')->with('success', 'Média mis à jour');
+        return redirect()->route('profile/medias')->with('success', 'Média mis à jour');
     }
 
     // Supprimer un média

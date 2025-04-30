@@ -28,11 +28,17 @@ Route::get('/profile/edit',
     [ProfileController::class, 'edit'])->middleware('auth')->name('profile.edit');
 
 
-    Route::get('/profile/medias',
+Route::get('/profile/medias',
     [MediaController::class, 'getUserMedia'])->name('userMedia');
 
+Route::get('/profile/medias/edit/{media}',
+    [MediaController::class, 'editMedia'])->name('editMedia');
+    
+Route::post('/todo/store',
+[MediaController::class, 'uploadMedia'])->name('todo_store');
 
-Route::post('/todo/store', [MediaController::class, 'uploadMedia'])->name('todo_store');
+Route::put('update/{media}',
+[MediaController::class, 'uploadMedia'])->name('media.update');
 
 Route::put('/profile',
     [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');

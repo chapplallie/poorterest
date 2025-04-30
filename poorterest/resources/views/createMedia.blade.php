@@ -1,4 +1,4 @@
-<form action="{{ route('todo_store') }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('media.update') }}" method="post" enctype="multipart/form-data">
     @csrf
 
     <!-- Title -->
