@@ -1,7 +1,7 @@
 
-Run : npm install bootstrap@latest 
-and : npm install sass@latest
 if css doesn't works 
+run : npm install tailwindcss @tailwindcss/vite
+
 
 
 
