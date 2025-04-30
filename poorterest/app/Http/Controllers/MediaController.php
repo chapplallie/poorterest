@@ -46,7 +46,7 @@ class MediaController extends Controller
             'status' => 'active',
         ]);
 
-        return redirect()->route('profile')->with('success', 'Média ajouté avec succès');
+        return redirect()->route('profile')->with('success', 'Média enregistré avec succès');
     }
 
     // Modifier un média
