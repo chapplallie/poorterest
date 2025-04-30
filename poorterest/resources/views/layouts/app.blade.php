@@ -49,15 +49,18 @@
                                 </li>
                             @endif
                         @else
+                            <a href="{{ route('createMedia') }}">
+                                Ajouter une photo
+                            </a>
+                            
+                            <a href="{{ route('userMedia') }}">
+                            Voir toutes mes photos
+                            </a>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" href="{{ route('createMedia') }}">
-                                        {{ __('Ajouter une photo') }}
-                                    </a>
                                     <a class="dropdown-item" href="{{ route('profile') }}">
                                         {{ __('Profile') }}
                                     </a>                       

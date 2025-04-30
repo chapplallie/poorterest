@@ -33,12 +33,11 @@ class MediaController extends Controller
             'size' => 'required|string',
             'category' => 'required|string',
         ]);
-        //console.log($request->all());
 
         $path = $request->file('media')->store('medias', 'public');
 
         Media::create([
-            'media' => $path,
+            'media' => $path ,
             'description' => $request->description,
             'title' => $request->title,
             'size' => $request->size,
@@ -90,5 +89,13 @@ class MediaController extends Controller
             'status' => $request->status,
         ]);
         return redirect()->route('medias.index')->with('success');
+    }
+
+    // Obtenir les médias d'un utilisateur par ID de l'utilisateur
+    public function getUserMedia()
+    {
+        $userId = Auth::id();
+        $medias = Media::where('userId', $userId)->get();
+        return view('userMedia', compact('medias'));
     }
 }
