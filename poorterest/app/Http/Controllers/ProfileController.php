@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -42,17 +43,41 @@ class ProfileController extends Controller
         return redirect('/profile')->with('success', 'Profil mis à jour avec succès.');
     }
 
-    public function deactivate()
+    public function deactivate($id)
     {
-        $user = Auth::user();
-        if (!($user instanceof User)) {
-            return redirect('/profile/edit')->withErrors(['user' => 'Utilisateur non trouvé']);
+        $user = User::findOrFail($id);
+        $authUser = Auth::user();
+       
+        if ($authUser->id === $user->id && $authUser->isAdmin()) {
+            return redirect()->back()->with('error', 'L\'admin ne peut pas supprimer son propre compte.');
+        };
+       
+        if ($authUser->id === $user->id) {
+            $user->active = false;
+            $user->save();
+            Auth::logout();
+            return redirect()->route('home')->with('success', 'Votre compte a été décactivé.');
         }
-        $user->active = false;
-        $user->save();
+        
+        if ($authUser->isAdmin()) {
+            $user->active = false;
+            $user->save();
+            return redirect()->route('users')->with('success', 'Votre compte a été désactivé.');
+        }
+        
+        return redirect()->back()->with('error', 'Action non autorisé.');
+    }
 
-        Auth::logout();
 
-        return redirect('/')->with('success', 'Votre compte a été désactivé avec succès.');
+    public function index(Request $request) {
+
+        $users = User::all();
+        return view('users', compact('users'));
+    }
+
+    public function editUser($id)
+    {
+        $user = User::findOrFail($id);
+        return view('usersEdit', compact('user'));
     }
 }
