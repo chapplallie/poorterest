@@ -1,9 +1,10 @@
 
-Run : npm install bootstrap@latest 
-and : npm install sass@latest
 if css doesn't works 
+run : npm install tailwindcss @tailwindcss/vite
 
-
+TODO : 
+dans editMedia: récupérer le fichier pour pas avoir a le réuploader.
+MediaController :  mettre erreur pour imager les problèmes.
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 

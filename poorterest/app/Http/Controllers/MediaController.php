@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Media;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class MediaController extends Controller
 {
@@ -16,9 +17,10 @@ class MediaController extends Controller
     }
 
     // Afficher le formulaire de création
-    public function create()
+
+    public function createMedia()
     {
-        return view('medias.create');
+        return view('createMedia');
     }
 
     // Enregistrer un nouveau média
@@ -35,25 +37,26 @@ class MediaController extends Controller
         $path = $request->file('media')->store('medias', 'public');
 
         Media::create([
-            'media' => $path,
+            'media' => $path ,
             'description' => $request->description,
             'title' => $request->title,
             'size' => $request->size,
-            'userId' => Auth::id,
+            'userId' => $request->user()->id,
             'category' => $request->category,
             'status' => 'active',
         ]);
 
-        return redirect()->route('medias.index')->with('success', 'Média ajouté avec succès');
+        return redirect()->route('profile')->with('success', 'Média enregistré avec succès');
     }
 
     // Modifier un média
     public function editMedia(Media $media)
     {
-        return view('medias.edit', compact('media'));
+        $media = Media::find($media->id);
+        return view('editMedia', compact('media'));
     }
 
-    public function updateCard(Request $request, Media $media)
+    public function updateMedia(Request $request, Media $media)
     {
         $request->validate([
             'description' => 'nullable|string',
@@ -69,11 +72,11 @@ class MediaController extends Controller
         }
 
         $media->update($request->only(['description', 'title', 'size', 'category']));
-        return redirect()->route('medias.index')->with('success', 'Média mis à jour');
+        return redirect()->route('profile/medias')->with('success', 'Média mis à jour');
     }
 
     // Supprimer un média
-    public function destroy(Media $media)
+    public function destroyMedia(Media $media)
     {
         Storage::delete('public/' . $media->image);
         $media->delete();
@@ -87,5 +90,13 @@ class MediaController extends Controller
             'status' => $request->status,
         ]);
         return redirect()->route('medias.index')->with('success');
+    }
+
+    // Obtenir les médias d'un utilisateur par ID de l'utilisateur
+    public function getUserMedia()
+    {
+        $userId = Auth::id();
+        $medias = Media::where('userId', $userId)->get();
+        return view('userMedia', compact('medias'));
     }
 }

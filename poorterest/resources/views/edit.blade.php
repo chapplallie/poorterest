@@ -1,5 +1,6 @@
 
 <!-- remplis form avec les infos du medias qu'on veux editer -->
+
 <form action="{{ route('todo_store') }}" method="post">
     @csrf
     <label className="block text-sm font-medium text-gray-700 mb-2">Nom :</label>
