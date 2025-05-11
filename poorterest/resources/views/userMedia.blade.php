@@ -19,7 +19,7 @@
             </style>
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 flex-col">
+    <body class="bg-[#FDFDFC] text-[#1b1b18] flex p-6 lg:p-8 flex-col">
         <header class="w-full text-sm mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
@@ -27,14 +27,14 @@
 
                         <a
                             href="{{ url('/profile') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                            class="inline-block px-5 py-1.5  border-[#19140035 hover:border-[#1915014a] border text-[#1b1b18] rounded-sm text-sm leading-normal"
                         >
                             Dashboard
                         </a>
                     @else
                         <a
                             href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                            class="inline-block px-5 py-1.5 text-[#1b1b18] border border-transparent hover:border-[#19140035]  rounded-sm text-sm leading-normal"
                         >
                             Log in
                         </a>
@@ -51,20 +51,22 @@
             @endif
         </header>
         <section class="w-full">
-            <div class="w-full grid grid-cols-4 gap-2">
-                @foreach ($medias as $media)
-                    <a href="{{ route('editMedia',  $media->id) }}" class="w-full">
-                        <div class="card pb-10 w-full h-100 border rounded-lg ">   
-                            <img src="{{ asset('storage/' . $media->media) }}" 
-                                class="w-fit object-cover"
-                                alt="photo">
-                            <h3 class="text-lg text-white font-bold">{{ $media->title }}</h3>
-                            <p class="text-sm text-white">{{ $media->description }}</p>
-                            <p class="text-sm text-white">Category: {{ $media->category }}</p>
-                        </div>
-                    </a>
-                @endforeach
+    <div class="w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
+        @foreach ($medias as $media)
+        <a href="#{{ $media->id }}" class="block">
+            <div class="card w-full border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-white overflow-hidden">
+                <img src="{{ asset('storage/' . $media->media) }}" 
+                    class="w-full object-cover rounded-t-lg"
+                    alt="photo">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $media->title }}</h3>
+                    <p class="text-sm text-gray-600 mb-4">{{ $media->description }}</p>
+                    <p class="text-xs text-gray-500">Category: <span class="font-medium">{{ $media->category }}</span></p>
+                </div>
             </div>
-        </section>
+        </a>
+        @endforeach
+    </div>
+</section>
     </body>
 </html>
