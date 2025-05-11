@@ -9,7 +9,6 @@ use App\Http\Controllers\MediaController;
 
 Route::get('/',
     [MediaController::class, 'index'])->name('welcome');
-
 Auth::routes();
 
 Route::get('/home',
@@ -31,13 +30,21 @@ Route::put('/profile',
     [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
 Route::delete('/profile',
     [ProfileController::class, 'deactivate'])->middleware('auth')->name('profile.deactivate');
-
 Route::get('/profile/add',
     [MediaController::class, 'createMedia'])->name('createMedia');
-// Route::put('/profile/{id}',
-//     [ProfileController::class, 'editMedia'])->middleware('auth')->name('profile.edit');
-// Route::delete('/profile/{id}',
-//     [ProfileController::class, 'deactivate'])->middleware('auth')->name('profile.deactivate');
+Route::put('/profile/{id}',
+    [ProfileController::class, 'editMedia'])->middleware('auth')->name('profile.edit');
+Route::delete('/profile/{id}',
+    [ProfileController::class, 'deactivate'])->middleware('auth')->name('profile.deactivate');
+Route::get('/profile/medias',
+    [MediaController::class, 'getUserMedia'])->name('userMedia');
+Route::get('/profile/medias/edit/{media}',
+    [MediaController::class, 'editMedia'])->name('editMedia');
+Route::post('/todo/store',
+    [MediaController::class, 'uploadMedia'])->name('todo_store');
+Route::put('update/{media}',
+    [MediaController::class, 'updateMedia'])->name('media.update');
+
 
 Route::get('user/edit/{id}',
     [ProfileController::class, 'editUser'])->middleware('auth')->name('users.edit');
@@ -45,14 +52,5 @@ Route::put('user/{id}',
     [ProfileController::class, 'update'])->middleware('auth')->name('users.update');
 
 
-Route::get('/profile/medias',
-    [MediaController::class, 'getUserMedia'])->name('userMedia');
-
-Route::get('/profile/medias/edit/{media}',
-    [MediaController::class, 'editMedia'])->name('editMedia');
-    
-Route::post('/todo/store',
-[MediaController::class, 'uploadMedia'])->name('todo_store');
-
-Route::put('update/{media}',
-[MediaController::class, 'updateMedia'])->name('media.update');
+Route::get('/{userId}',
+    [MediaController::class, 'getMediaByUserId'])->name('medias.byUser');

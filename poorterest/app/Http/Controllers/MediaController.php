@@ -109,4 +109,13 @@ class MediaController extends Controller
         $medias = Media::where('userId', $userId)->get();
         return view('userMedia', compact('medias'));
     }
+
+    public function getMediaByUserId($userId)
+{
+    // Fetch all media records for the given userId
+    $medias = Media::where('userId', $userId)->get();
+
+    // Return the media records, or you can pass them to a view
+    return view('displayMediaByUser', compact('medias'));
+}
 }
