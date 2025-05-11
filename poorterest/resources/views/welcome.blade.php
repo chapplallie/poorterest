@@ -19,7 +19,7 @@
             </style>
         @endif
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 flex-col">
+    <body class="bg-[#FDFDFC] text-[#1b1b18] flex p-6 lg:p-8 flex-col">
         <header class="w-full text-sm mb-6 not-has-[nav]:hidden">
             @if (Route::has('login'))
                 <nav class="flex items-center justify-end gap-4">
@@ -27,14 +27,14 @@
 
                         <a
                             href="{{ url('/profile') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                            class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] rounded-sm text-sm leading-normal"
                         >
                             Dashboard
                         </a>
                     @else
                         <a
                             href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] text-[#1b1b18] border border-transparent hover:border-[#19140035] dark:hover:border-[#3E3E3A] rounded-sm text-sm leading-normal"
+                            class="inline-block px-5 py-1.5 text-[#1b1b18] border border-transparent hover:border-[#19140035] rounded-sm text-sm leading-normal"
                         >
                             Log in
                         </a>
@@ -42,7 +42,7 @@
                         @if (Route::has('register'))
                             <a
                                 href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
+                                class="inline-block px-5 py-1.5  border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] rounded-sm text-sm leading-normal">
                                 Register
                             </a>
                         @endif
@@ -51,16 +51,18 @@
             @endif
         </header>
         <section class="w-full">
-            <div class="w-full grid grid-cols-4 gap-2">
+            <div class="w-full grid md:grid-cols-3 grid-cols-1 gap-2">
                 @foreach ($medias as $media)
                     <a href="#{{ $media->id }}" class="w-full">
-                        <div class="card pb-10 w-full h-100 border rounded-lg ">   
+                        <div class="card w-full pb-0  border rounded-lg ">   
                             <img src="{{ asset('storage/' . $media->media) }}" 
-                                class="w-fit object-cover"
+                                class="w-fit"
                                 alt="photo">
-                            <h3 class="text-lg text-white font-bold">{{ $media->title }}</h3>
-                            <p class="text-sm text-white">{{ $media->description }}</p>
-                            <p class="text-sm text-white">Category: {{ $media->category }}</p>
+                            <div class="">
+                                <h3 class="text-lg font-bold">{{ $media->title }}</h3>
+                                <p class="text-sm">{{ $media->description }}</p>
+                                <p class="text-sm">Category: {{ $media->category }}</p>
+                            </div>
                         </div>
                     </a>
                 @endforeach
