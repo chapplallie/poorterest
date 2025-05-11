@@ -50,6 +50,29 @@
                 </nav>
             @endif
         </header>
+
+        <section class="w-full mb-6">
+        <form action="{{ route('welcome') }}" method="GET" class="flex items-center gap-4">
+            <select 
+                name="category_id" 
+                class="form-control h-10 w-100 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            >
+                <option value="">All Categories</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category_id') ==  $category->id ? 'selected' : '' }}>
+                        {{ $category->title }}
+                    </option>
+                @endforeach
+            </select>
+            <button 
+                type="submit" 
+                class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            >
+                Search
+            </button>
+        </form>
+    </section>
+
         <section class="w-full">
     <div class="w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
         @foreach ($medias as $media)

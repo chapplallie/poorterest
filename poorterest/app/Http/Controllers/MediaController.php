@@ -11,10 +11,18 @@ use App\Models\Category;
 class MediaController extends Controller
 {
     // Afficher la liste des médias
-    public function index()
+    public function index(Request $request)
     {
-        $medias = Media::with('category')->get();
-        return view('welcome', compact('medias'));
+        $categories = Category::all();
+    
+        // Fetch medias, filtered by category if a category_id is provided
+        $medias = Media::with('category')
+            ->when($request->category_id, function ($query) use ($request) {
+                $query->where('category_id', $request->category_id);
+            })
+            ->get();
+    
+        return view('welcome', compact('categories', 'medias'));
     }
     // Afficher le formulaire de création
     public function createMedia()
