@@ -26,10 +26,10 @@
                     @auth
 
                         <a
-                            href="{{ url('/profile') }}"
+                            href="{{ url('/') }}"
                             class="inline-block px-5 py-1.5  border-[#19140035 hover:border-[#1915014a] border text-[#1b1b18] rounded-sm text-sm leading-normal"
                         >
-                            Dashboard
+                            Page d'accueil
                         </a>
                     @else
                         <a
@@ -53,7 +53,7 @@
         <section class="w-full">
     <div class="w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
         @foreach ($medias as $media)
-        <a href="medias/edit/{{$media->id}}" class="block">
+        <div class="block">
             <div class="card w-full border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-white overflow-hidden">
                 <img src="{{ asset('storage/' . $media->media) }}" 
                     class="w-full object-cover rounded-t-lg"
@@ -64,7 +64,7 @@
                     <p class="text-xs text-gray-500">Category : <span class="font-medium">{{ $media->category->title }}</span></p>
                 </div>
             </div>
-        </a>
+        </div>
         @endforeach
     </div>
 </section>
