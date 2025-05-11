@@ -34,13 +34,10 @@ Route::delete('/profile',
 
 Route::get('/profile/add',
     [MediaController::class, 'createMedia'])->name('createMedia');
-
-Route::get('/profile/edit',
-    [ProfileController::class, 'edit'])->middleware('auth')->name('profile.edit');
-Route::put('/profile/{id}',
-    [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
-Route::delete('/profile/{id}',
-    [ProfileController::class, 'deactivate'])->middleware('auth')->name('profile.deactivate');
+// Route::put('/profile/{id}',
+//     [ProfileController::class, 'editMedia'])->middleware('auth')->name('profile.edit');
+// Route::delete('/profile/{id}',
+//     [ProfileController::class, 'deactivate'])->middleware('auth')->name('profile.deactivate');
 
 Route::get('user/edit/{id}',
     [ProfileController::class, 'editUser'])->middleware('auth')->name('users.edit');
