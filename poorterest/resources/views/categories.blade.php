@@ -33,7 +33,7 @@
                             <form action="{{ route('categories.deactivate', ['id' => $category->id]) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir désactiver la catégorie ?');">
                             @csrf
                             @method('PUT')
-                            <button type="submit" class="btn btn-danger">Désactiver</button>
+                            <button type="submit" class="btn btn-secondary">Désactiver</button>
                             </form>
                         @else
                             <form action="{{ route('categories.activate', ['id' => $category->id]) }}" method="POST" onsubmit="return confirm('Voulez-vous activer cette catégorie ?');">
@@ -45,7 +45,7 @@
                     </td>
                 </tr>
             @endforeach
-            <a href="{{ route('categories.create')}}"><button class="btn btn-primary">Créer</button></a>
+            <a href="{{ route('categories.create')}}"><button class="btn btn-primary mb-3">Créer une catégorie</button></a>
         </tbody>
     </table>
 
