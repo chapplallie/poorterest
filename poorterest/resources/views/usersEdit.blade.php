@@ -2,15 +2,20 @@
 
 @section('content')
 <div class="container">
-    <h2>Mon Profil</h2>
+    <h2>Profil de l'utilisateur {{ $user->name }}</h2>
 
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
     @endif
+    @if(session('error'))
+        <div class="alert alert-warning">
+            {{ session('error') }}
+        </div>
+    @endif
 
-    <form method="POST" action="{{ route('profile.update', ['id' => $user->id]) }}">
+    <form method="POST" action="{{ route('profile.update', $user->id) }}">
         @csrf
         @method('PUT')
 
@@ -37,26 +42,6 @@
         <button type="submit" class="btn btn-primary">Mettre à jour</button>
     </form>
     <hr>
-
-    <!-- Désactivation du compte  -->
-
-    <form action="{{ route('profile.deactivate', ['id' => $user->id]) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir désactiver votre compte ?');">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">Désactiver le compte</button>
-
-    </form>
-
-    <!-- Visible si l'utilisateur est admin -->
-
-    @if(auth()->user()->isAdmin())
-
-    <h2 class="m-3">Tableau de bord d'admin</h2>
-
-    <a href="{{ route('users')}}"><button class="btn btn-info m-1">Gérer les utilisateurs</button></a>
-    <button class="btn btn-warning m-1">Ajouter une catégorie</button>
-
-    @endif
 
 </div>
 @endsection
