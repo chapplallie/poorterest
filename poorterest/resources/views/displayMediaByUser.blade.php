@@ -26,15 +26,15 @@
                     @auth
 
                         <a
-                            href="{{ url('/profile') }}"
-                            class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] rounded-sm text-sm leading-normal"
+                            href="{{ url('/') }}"
+                            class="inline-block px-5 py-1.5  border-[#19140035 hover:border-[#1915014a] border text-[#1b1b18] rounded-sm text-sm leading-normal"
                         >
-                            Dashboard
+                            Page d'accueil
                         </a>
                     @else
                         <a
                             href="{{ route('login') }}"
-                            class="inline-block px-5 py-1.5 text-[#1b1b18] border border-transparent hover:border-[#19140035] rounded-sm text-sm leading-normal"
+                            class="inline-block px-5 py-1.5 text-[#1b1b18] border border-transparent hover:border-[#19140035]  rounded-sm text-sm leading-normal"
                         >
                             Log in
                         </a>
@@ -42,7 +42,7 @@
                         @if (Route::has('register'))
                             <a
                                 href="{{ route('register') }}"
-                                class="inline-block px-5 py-1.5  border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] rounded-sm text-sm leading-normal">
+                                class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal">
                                 Register
                             </a>
                         @endif
@@ -50,65 +50,23 @@
                 </nav>
             @endif
         </header>
-
-        <section class="searchBar w-full mb-6">
-            <form action="{{ route('welcome') }}" method="GET" class="flex items-center gap-4">
-                <select 
-                    name="category_id" 
-                    class="form-control h-10 w-100 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                >
-                    <option value="">All Categories</option>
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ request('category_id') ==  $category->id ? 'selected' : '' }}>
-                            {{ $category->title }}
-                        </option>
-                    @endforeach
-                </select>
-                <button 
-                    type="submit" 
-                    class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                >
-                    Search
-                </button>
-            </form>
-        </section>
-
         <section class="w-full">
-            <div class="w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
-                @foreach ($medias as $media)
-               
-                    <div class="card w-full border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-white overflow-hidden">               
-                        @if (Str::endsWith($media->media, ['.jpg', '.jpeg', '.png', '.gif', '.svg']))
-                            <img src="{{ asset('storage/' . $media->media) }}" 
-                                class="w-full object-cover rounded-t-lg"
-                                alt="media">
-                        @elseif (Str::endsWith($media->media, ['.mp4', '.mov', '.avi']))
-                            <video controls class="w-full object-cover rounded-t-lg">
-                                <source src="{{ asset('storage/' . $media->media) }}" type="video/mp4">
-                                impossible de visualiser le média (mauvais format)
-                            </video>
-                        @else
-                            <p class="text-gray-500">impossible de visualiser le média</p>
-                        @endif
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $media->title }}</h3>
-                            <p class="text-sm text-gray-600 mb-4">{{ $media->description }}</p>
-
-<<<<<<< HEAD
-                    <p class="text-xs text-gray-500">Category : <span class="font-medium"> {{ $media->category ? $media->category->title : 'Non catégorisé' }}</span></p>
+    <div class="w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
+        @foreach ($medias as $media)
+        <div class="block">
+            <div class="card w-full border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-white overflow-hidden">
+                <img src="{{ asset('storage/' . $media->media) }}" 
+                    class="w-full object-cover rounded-t-lg"
+                    alt="photo">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $media->title }}</h3>
+                    <p class="text-sm text-gray-600 mb-4">{{ $media->description }}</p>
+                    <p class="text-xs text-gray-500">Category : <span class="font-medium">{{ $media->category->title }}</span></p>
                 </div>
-=======
-                            <p class="text-xs text-gray-500">Category : <span class="font-medium">{{ $media->category->title}}</span></p>
-                            <div class="mt-5">
-                                <a href="{{ route('medias.byUser', ['userId' => $media->userId]) }}" class="mt-5 px-4 py-2 border border-amber-600 rounded-md shadow-sm hover:bg-amber-600 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                tous les médias posté par <span class="font-medium">{{ $media->userId}}</span>
-                                </a>  
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
->>>>>>> e2bbd793b27f57ad20b52ec3d7be566c1db2361f
             </div>
-        </section>
+        </div>
+        @endforeach
+    </div>
+</section>
     </body>
 </html>

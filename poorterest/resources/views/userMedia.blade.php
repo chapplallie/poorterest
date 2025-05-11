@@ -53,7 +53,7 @@
         <section class="w-full">
     <div class="w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
         @foreach ($medias as $media)
-        <a href="#{{ $media->id }}" class="block">
+        <a href="medias/edit/{{$media->id}}" class="block">
             <div class="card w-full border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-white overflow-hidden">
                 <img src="{{ asset('storage/' . $media->media) }}" 
                     class="w-full object-cover rounded-t-lg {{ $media->size === 'small' ? 'h-32' : ($media->size === 'medium' ? 'h-48' : 'h-64') }}" 
