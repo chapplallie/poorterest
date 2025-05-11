@@ -51,22 +51,22 @@
             @endif
         </header>
         <section class="w-full">
-            <div class="w-full grid md:grid-cols-3 grid-cols-1 gap-2">
-                @foreach ($medias as $media)
-                    <a href="#{{ $media->id }}" class="w-full">
-                        <div class="card w-full pb-0  border rounded-lg ">   
-                            <img src="{{ asset('storage/' . $media->media) }}" 
-                                class="w-fit"
-                                alt="photo">
-                            <div class="">
-                                <h3 class="text-lg font-bold">{{ $media->title }}</h3>
-                                <p class="text-sm">{{ $media->description }}</p>
-                                <p class="text-sm">Category: {{ $media->category }}</p>
-                            </div>
-                        </div>
-                    </a>
-                @endforeach
+    <div class="w-full grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
+        @foreach ($medias as $media)
+        <a href="#{{ $media->id }}" class="block">
+            <div class="card w-full border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-white overflow-hidden">
+                <img src="{{ asset('storage/' . $media->media) }}" 
+                    class="w-full object-cover rounded-t-lg"
+                    alt="photo">
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $media->title }}</h3>
+                    <p class="text-sm text-gray-600 mb-4">{{ $media->description }}</p>
+                    <p class="text-xs text-gray-500">Category: <span class="font-medium">{{ $media->category }}</span></p>
+                </div>
             </div>
-        </section>
+        </a>
+        @endforeach
+    </div>
+</section>
     </body>
 </html>
