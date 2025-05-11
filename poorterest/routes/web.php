@@ -27,6 +27,10 @@ Route::put('/categories/{id}/activate', [CategoryController::class, 'activate'])
 
 Route::get('/profile',
     [ProfileController::class, 'show'])->middleware('auth')->name('profile');
+
+Route::get('/profile/add',
+    [MediaController::class, 'createMedia'])->name('createMedia');
+
 Route::get('/profile/edit',
     [ProfileController::class, 'edit'])->middleware('auth')->name('profile.edit');
 Route::put('/profile/{id}',

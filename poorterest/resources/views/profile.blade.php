@@ -38,7 +38,7 @@
     </form>
     <hr>
 
-    <!-- Désactiovation du compte  -->
+    <!-- Désactivation du compte  -->
 
     <form action="{{ route('profile.deactivate', ['id' => $user->id]) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir désactiver votre compte ?');">
         @csrf
