@@ -27,6 +27,10 @@ Route::put('/categories/{id}/activate', [CategoryController::class, 'activate'])
 
 Route::get('/profile',
     [ProfileController::class, 'show'])->middleware('auth')->name('profile');
+Route::put('/profile',
+    [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
+Route::delete('/profile',
+    [ProfileController::class, 'deactivate'])->middleware('auth')->name('profile.deactivate');
 
 Route::get('/profile/add',
     [MediaController::class, 'createMedia'])->name('createMedia');
@@ -42,3 +46,16 @@ Route::get('user/edit/{id}',
     [ProfileController::class, 'editUser'])->middleware('auth')->name('users.edit');
 Route::put('user/{id}',
     [ProfileController::class, 'update'])->middleware('auth')->name('users.update');
+
+
+Route::get('/profile/medias',
+    [MediaController::class, 'getUserMedia'])->name('userMedia');
+
+Route::get('/profile/medias/edit/{media}',
+    [MediaController::class, 'editMedia'])->name('editMedia');
+    
+Route::post('/todo/store',
+[MediaController::class, 'uploadMedia'])->name('todo_store');
+
+Route::put('update/{media}',
+[MediaController::class, 'uploadMedia'])->name('media.update');
