@@ -8,25 +8,41 @@ use App\Models\Category;
 class CategoryController extends Controller
 {
     /**
+     * Afficher toutes les catégories.
+     */
+    public function index()
+    {
+        $categories = Category::all();
+
+        return view('categories', compact('categories'));
+    }
+    /**
+     * Afficher le formulaire de création de catégorie.
+     */
+    public function create()
+    {
+        return view('categoriesCreate');
+    }
+    
+    /**
      * Ajouter une catégorie.
      */
     public function store(Request $request)
     {
         // Valider la catégorie
         $request->validate([
-            'name' => 'required|string|max:255|unique:categories',
+            'title' => 'required|string|max:255|unique:categories',
+            'description' => 'nullable|string|max:1000',
         ]);
 
         // Créer la catégorie
         $category = Category::create([
-            'name' => $request->name,
+            'title' => $request->title,
+            'description' => $request->description,
             'status' => 'active',
         ]);
 
-        return response()->json([
-            'message' => 'Catégorie ajoutée',
-            'category' => $category
-        ], 201);
+        return redirect()->route('categories')->with('success', 'Catégorie ajoutée avec succès.');
     }
 
     /**
@@ -37,12 +53,25 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         if (!$category) {
-            return response()->json(['error' => 'Catégorie non trouvée'], 404);
+            return redirect()->back()->with('error', 'Catégorie non trouvée.');
         }
 
         $category->update(['status' => 'deactivated']);
 
-        return response()->json(['message' => 'Catégorie désactivée']);
+        return redirect()->back()->with('success', 'Catégorie désactivée.');
+    }
+
+    public function activate ($id)
+    {
+        $category = Category::find($id);
+
+        if (!$category) {
+            return redirect()->back()->with('error', 'Catégorie non trouvée.');
+        }
+
+        $category->update(['status' => 'active']);
+
+        return redirect()->back()->with('success', 'Catégorie activée.');
     }
 }
 
