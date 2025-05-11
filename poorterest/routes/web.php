@@ -55,4 +55,4 @@ Route::post('/todo/store',
 [MediaController::class, 'uploadMedia'])->name('todo_store');
 
 Route::put('update/{media}',
-[MediaController::class, 'uploadMedia'])->name('media.update');
+[MediaController::class, 'updateMedia'])->name('media.update');

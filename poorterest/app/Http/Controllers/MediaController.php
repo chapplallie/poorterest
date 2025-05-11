@@ -61,8 +61,9 @@ class MediaController extends Controller
     // Modifier un média
     public function editMedia(Media $media)
     {
+        $categories = Category::all(); 
         $media = Media::find($media->id);
-        return view('editMedia', compact('media'));
+        return view('editMedia', compact('media'), compact('categories'));
     }
 
     public function updateMedia(Request $request, Media $media)
@@ -80,8 +81,8 @@ class MediaController extends Controller
             $media->image = $path;
         }
 
-        $media->update($request->only(['description', 'title', 'size', 'category']));
-        return redirect()->route('profile/medias')->with('success', 'Média mis à jour');
+        $media->update($request->only(['description', 'title', 'size', 'category_id']));
+        return redirect()->route('profile')->with('success', 'Média mis à jour');
     }
 
     // Supprimer un média

@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('media.update', $media->id) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('media.update', $media->id) }}" enctype="multipart/form-data" class="h-full">
         @csrf
         @method('PUT')
 
@@ -40,7 +40,21 @@
 
         <!-- Media File -->
         <div class="mb-3">
-            <label for="media">Fichier média (image ou vidéo)</label>
+            <label for="media">Fichier média actuelle</label>
+            @if (Str::endsWith($media->media, ['.jpg', '.jpeg', '.png', '.gif', '.svg']))
+                <img src="{{ asset('storage/' . $media->media) }}" 
+                    alt="Current Media" 
+                    class="img-thumbnail mb-3" 
+                    style="max-width: 200px;">
+            @elseif (Str::endsWith($media->media, ['.mp4', '.mov']))
+                <video controls class="mb-3" style="max-width: 200px;">
+                    <source src="{{ asset('storage/' . $media->media) }}" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de cette vidéo.
+                </video>
+            @else
+                <p class="text-muted">Aucun média disponible ou format non supporté.</p>
+            @endif
+
             <input 
                 type="file" 
                 name="media" 
@@ -67,20 +81,23 @@
         </div>
 
         <!-- Category -->
-        <div class="mb-3">
-            <label for="category">Catégorie</label>
-            <input 
-                type="text" 
-                name="category" 
-                class="form-control" 
-                value="{{ old('category', $media->category) }}" 
-                required
-            >
-        </div>
+        <div class="mb-10">
+        <label for="category" class="form-label">Catégorie</label>
+        <select 
+            name="category_id" 
+            id="category" 
+            class="form-control mb-10" 
+            required
+        >
+            <option value="" disabled selected>Choisissez une catégorie</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->title }}</option>
+            @endforeach
+        </select>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+        <button type="submit" class="mt-200 btn btn-primary" style="margin-top: 3rem;">Mettre à jour</button>
     </form>
-    <hr>
+
 </div>
 @endsection
