@@ -54,7 +54,7 @@
     <h2 class="m-3">Tableau de bord d'admin</h2>
 
     <a href="{{ route('users')}}"><button class="btn btn-info m-1">Gérer les utilisateurs</button></a>
-    <button class="btn btn-warning m-1">Ajouter une catégorie</button>
+    <a href="{{ route('categories')}}"><button class="btn btn-warning m-1">Gérer les catégories</button></a>
 
     @endif
 

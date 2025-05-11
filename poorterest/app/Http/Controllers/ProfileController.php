@@ -21,7 +21,7 @@ class ProfileController extends Controller
         return view('profile', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -29,9 +29,10 @@ class ProfileController extends Controller
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
-        $user = Auth::user();
-        if (!($user instanceof User)) {
-            return redirect('/profile/edit')->withErrors(['user' => 'Utilisateur non trouvé']);
+        $authUser = Auth::user();
+        $user = User::findorFail($id);
+        if ($authUser->id !== $user->id && !$authUser->isAdmin()) {
+            return redirect()->back()->with('error', 'Action non autorisée.');
         }
         $user->name = $request->name;
         $user->email = $request->email;
@@ -39,6 +40,10 @@ class ProfileController extends Controller
             $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         }
         $user->save();
+
+        if ($authUser->isAdmin() && $authUser->id !== $user->id) {
+        return redirect()->route('users')->with('success', 'Profil utilisateur mis à jour avec succès.');
+        }
 
         return redirect('/profile')->with('success', 'Profil mis à jour avec succès.');
     }
