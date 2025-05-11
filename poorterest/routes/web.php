@@ -65,3 +65,5 @@ Route::put('update/{media}',
 [MediaController::class, 'uploadMedia'])->name('media.update');
 
 Route::patch('/media/{id}/update-size', [MediaController::class, 'updateMediaSize'])->name('media.updateSize');
+
+Route::get('/medias/user/{userId}', [MediaController::class, 'getUserMediaByUser'])->name('medias.byUser');

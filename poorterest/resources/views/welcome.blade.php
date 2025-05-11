@@ -94,11 +94,7 @@
                             <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $media->title }}</h3>
                             <p class="text-sm text-gray-600 mb-4">{{ $media->description }}</p>
 
-<<<<<<< HEAD
-                    <p class="text-xs text-gray-500">Category : <span class="font-medium"> {{ $media->category ? $media->category->title : 'Non catégorisé' }}</span></p>
-                </div>
-=======
-                            <p class="text-xs text-gray-500">Category : <span class="font-medium">{{ $media->category->title}}</span></p>
+                            <p class="text-xs text-gray-500">Category : <span class="font-medium">{{ $media->category->title ?? 'Non catégorisé' }}</span></p>
                             <div class="mt-5">
                                 <a href="{{ route('medias.byUser', ['userId' => $media->userId]) }}" class="mt-5 px-4 py-2 border border-amber-600 rounded-md shadow-sm hover:bg-amber-600 focus:outline-none focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 tous les médias posté par <span class="font-medium">{{ $media->userId}}</span>
@@ -107,7 +103,6 @@
                         </div>
                     </div>
                 @endforeach
->>>>>>> e2bbd793b27f57ad20b52ec3d7be566c1db2361f
             </div>
         </section>
     </body>
