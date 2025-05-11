@@ -56,12 +56,30 @@
         <a href="#{{ $media->id }}" class="block">
             <div class="card w-full border rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 bg-white overflow-hidden">
                 <img src="{{ asset('storage/' . $media->media) }}" 
-                    class="w-full object-cover rounded-t-lg"
+                    class="w-full object-cover rounded-t-lg {{ $media->size === 'small' ? 'h-32' : ($media->size === 'medium' ? 'h-48' : 'h-64') }}" 
                     alt="photo">
                 <div class="p-4">
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $media->title }}</h3>
                     <p class="text-sm text-gray-600 mb-4">{{ $media->description }}</p>
                     <p class="text-xs text-gray-500">Category : <span class="font-medium">{{ $media->category->title }}</span></p>
+                      <!-- Gestion de taille par admin -->
+                    @auth
+                    @if(auth()->user()->is_admin)
+                        <form method="POST" action="{{ route('media.updateSize', $media->id) }}" class="mt-2">
+                        @csrf
+                        @method('PATCH')
+                        <label for="size-{{ $media->id }}" class="text-xs text-gray-500">Taille :</label>
+                            <select name="size" id="size-{{ $media->id }}" class="text-sm rounded p-1 focus:outline-none focus:ring-1 focus:ring-blue-400 bg-gray-100">
+                                <option value="small" {{ $media->size === 'small' ? 'selected' : '' }}>Petite</option>
+                                <option value="medium" {{ $media->size === 'medium' ? 'selected' : '' }}>Moyenne</option>
+                                <option value="large" {{ $media->size === 'large' ? 'selected' : '' }}>Grande</option>
+                            </select>
+                            <button type="submit" class="bg-white hover:bg-gray-100 text-gray-800 text-sm font-medium py-1.5 px-3 border border-gray-300 rounded shadow">
+                                Enregistrer
+                            </button>
+                        </form>
+                    @endif
+                    @endauth
                 </div>
             </div>
         </a>

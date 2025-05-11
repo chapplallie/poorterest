@@ -84,6 +84,18 @@ class MediaController extends Controller
         return redirect()->route('profile/medias')->with('success', 'Média mis à jour');
     }
 
+    public function updateMediaSize(Request $request, $id)
+    {
+        $request->validate([
+            'size' => 'required|string|in:small,medium,large',
+        ]);
+
+        $media = Media::findOrFail($id);
+        $media->update(['size' => $request->size]);
+
+        return redirect()->back()->with('success', 'Taille mise à jour avec succès.');
+    }
+
     // Supprimer un média
     public function destroyMedia(Media $media)
     {

@@ -59,3 +59,5 @@ Route::post('/todo/store',
 
 Route::put('update/{media}',
 [MediaController::class, 'uploadMedia'])->name('media.update');
+
+Route::patch('/media/{id}/update-size', [MediaController::class, 'updateMediaSize'])->name('media.updateSize');
