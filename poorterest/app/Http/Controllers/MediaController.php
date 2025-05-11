@@ -6,32 +6,33 @@ use Illuminate\Http\Request;
 use App\Models\Media;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class MediaController extends Controller
 {
     // Afficher la liste des médias
     public function index()
     {
-        $medias = Media::all();
+        $medias = Media::with('category')->get();
         return view('welcome', compact('medias'));
     }
-
     // Afficher le formulaire de création
-
     public function createMedia()
     {
-        return view('createMedia');
+        $categories = Category::all(); 
+        return view('createMedia', compact('categories'));
     }
 
     // Enregistrer un nouveau média
     public function uploadMedia(Request $request)
     {
+        //dd($request->all());
         $request->validate([
             'media' => 'required|file|mimes:jpeg,png,jpg,gif,svg,mp4,mov|max:20000',
             'description' => 'nullable|string',
             'title' => 'required|string|max:90',
             'size' => 'required|string',
-            'category' => 'required|string',
+            'category_id' => 'required|exists:categories,id'
         ]);
 
         $path = $request->file('media')->store('medias', 'public');
@@ -42,7 +43,7 @@ class MediaController extends Controller
             'title' => $request->title,
             'size' => $request->size,
             'userId' => $request->user()->id,
-            'category' => $request->category,
+            'category_id' => $request->category_id,
             'status' => 'active',
         ]);
 
@@ -62,7 +63,7 @@ class MediaController extends Controller
             'description' => 'nullable|string',
             'title' => 'required|string|max:255',
             'size' => 'required|string',
-            'category' => 'required|string',
+            'category_id' => 'required|exists:categories,id'
         ]);
 
         if ($request->hasFile('image')) {

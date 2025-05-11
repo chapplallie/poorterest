@@ -61,7 +61,7 @@
                 <div class="p-4">
                     <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ $media->title }}</h3>
                     <p class="text-sm text-gray-600 mb-4">{{ $media->description }}</p>
-                    <p class="text-xs text-gray-500">Category: <span class="font-medium">{{ $media->category }}</span></p>
+                    <p class="text-xs text-gray-500">Category : <span class="font-medium">{{ $media->category->title }}</span></p>
                 </div>
             </div>
         </a>

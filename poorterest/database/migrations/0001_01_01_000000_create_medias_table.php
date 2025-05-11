@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('size');
             $table->string('category');
-            $table->int('userId');
+            $table->unsignedBigInteger('userId');
             $table->string('status');
             $table->timestamps();
         });

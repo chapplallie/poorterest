@@ -82,16 +82,19 @@
 
     <!-- Category -->
     <div class="mb-3">
-        <label for="category" class="form-label">Catégorie</label>
-        <input 
-            type="text" 
-            name="category" 
-            id="category"
-            class="form-control" 
-            required
-            placeholder="Entrez la catégorie"
-        />
-    </div>
+    <label for="category" class="form-label">Catégorie</label>
+    <select 
+        name="category_id" 
+        id="category" 
+        class="form-control" 
+        required
+    >
+        <option value="" disabled selected>Choisissez une catégorie</option>
+        @foreach ($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->title }}</option>
+        @endforeach
+    </select>
+</div>
 
     <!-- Submit Button -->
     <div class="text-center">

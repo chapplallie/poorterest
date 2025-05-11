@@ -21,10 +21,17 @@ class Media extends BaseModel
         'description',
         'title',
         'size',
-        'category',
+        'category_id',
         'status',
         'userId',
     ];
+
+    //bind category et medias pour optimisation des query 
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
